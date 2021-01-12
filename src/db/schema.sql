@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS water_n_go;
+
+CREATE DATABASE water_n_go;
