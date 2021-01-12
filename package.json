@@ -4,6 +4,7 @@
   "description": "Water 'N' Go is a on the go web application that reminds you to water your plants. Not all of our thumbs are as green as we wish they would be so let's change that with Water N Go!",
   "main": "index.js",
   "scripts": {
+    "test": "flagpole build && flagpole run --all",
     "watch": "tsc -w",
     "dev": "nodemon ./dist/server.js",
     "start": "node ./dist/server.js"
@@ -25,6 +26,7 @@
     "@types/morgan": "^1.9.2",
     "@types/node": "^14.14.20",
     "@types/sequelize": "^4.28.9",
+    "flagpole": "^2.5.26",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
