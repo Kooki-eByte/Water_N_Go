@@ -1,0 +1,25 @@
+{
+  "project": {
+    "id": "",
+    "name": "Water_N_Go",
+    "path": "tests",
+    "source": "src",
+    "output": "out",
+    "images": "images",
+    "cache": "cache",
+    "schemas": "schemas"
+  },
+  "environments": {
+    "dev": {
+      "name": "dev",
+      "defaultDomain": "http://localhost:3001/"
+    }
+  },
+  "suites": {
+    "getPlantAPI": {
+      "id": "",
+      "name": "getPlantAPI",
+      "tags": []
+    }
+  }
+}
