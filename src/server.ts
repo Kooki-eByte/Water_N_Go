@@ -8,6 +8,7 @@ config();
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+const db = require("./models");
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
@@ -24,7 +25,12 @@ if (process.env.NODE_ENV === "production") {
 
 // TODO : API routes
 
-// TODO : Have db sequelize sync and connect with server
-app.listen(PORT, () => {
-  console.log("started listening");
+db.sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log(
+      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      PORT,
+      PORT
+    );
+  });
 });
