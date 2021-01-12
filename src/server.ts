@@ -9,6 +9,8 @@ config();
 const PORT = process.env.PORT || 3001;
 const app = express();
 const db = require("./models");
+const routes = require("./routes");
+
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
@@ -24,6 +26,14 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // TODO : API routes
+app.get("/", (req, res) => {
+  res.json({
+    first: "Bob",
+    last: "Billy",
+  });
+});
+
+app.use(routes);
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
