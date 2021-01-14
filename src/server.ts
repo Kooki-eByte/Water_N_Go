@@ -30,6 +30,7 @@ app.get("/", (req, res) => {
   res.json({
     first: "Bob",
     last: "Billy",
+    message: "Hello there",
   });
 });
 
