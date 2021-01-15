@@ -1,6 +1,15 @@
 const dbModel = require("../../models");
 
-const addPlantQuery = async (data: object) => {
+const addPlantQuery = async <
+  T extends {
+    plantImage: string;
+    name: string;
+    isWatered: boolean;
+    daysToWaterAgain: number;
+  }
+>(
+  data: T
+) => {
   try {
     const plant = await dbModel.Plant.create({
       plantImage: data.plantImage,
@@ -20,6 +29,7 @@ const addPlantQuery = async (data: object) => {
 
 // Need to get userID to grab the write plants
 const getPlantsQuery = async (data: object) => {
+  // <T extends {userId: string}>
   try {
     const plants = await dbModel.Plant.findAll({
       // where: {
@@ -33,7 +43,7 @@ const getPlantsQuery = async (data: object) => {
   }
 };
 
-const deletePlantQuery = async (data: object) => {
+const deletePlantQuery = async <T extends { id: string }>(data: T) => {
   try {
     const deletedPlant = await dbModel.Plant.destroy({
       where: {
