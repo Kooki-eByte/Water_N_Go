@@ -12,13 +12,18 @@
   "environments": {
     "dev": {
       "name": "dev",
-      "defaultDomain": "http://localhost:3001/"
+      "defaultDomain": "http://localhost:3001"
     }
   },
   "suites": {
     "getPlantAPI": {
       "id": "",
       "name": "getPlantAPI",
+      "tags": []
+    },
+    "getUserAPI": {
+      "id": "",
+      "name": "getUserAPI",
       "tags": []
     }
   }
