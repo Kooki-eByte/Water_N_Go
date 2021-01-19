@@ -19,8 +19,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "no-redeclare": "off",
-    "@typescript-eslint/no-redeclare": ["error"]
   },
   "include": [
     "src"
