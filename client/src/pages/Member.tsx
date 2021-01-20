@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "./style/styles.css";
 
-export const Home: React.FC = () => {
+export const Member: React.FC = () => {
     return (
         <Container >
             <Row>
@@ -10,7 +10,7 @@ export const Home: React.FC = () => {
             </Row>
             <Row>
                 <Col>
-                    <h2>This is the home page</h2>
+                    <h2>This is the member page</h2>
                     <p>Please accept notification so that we can notify you when you need to water your plants!</p>
                 </Col>
             </Row>

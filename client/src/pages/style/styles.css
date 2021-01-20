@@ -1,0 +1,9 @@
+/* This CSS is strictly for styling on all of the pages */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.home-title {
+  text-align: center;
+}
