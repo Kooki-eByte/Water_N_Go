@@ -20,13 +20,13 @@ if (process.env.NODE_ENV === "production") {
   // Serve any static files
   app.use(express.static(path.join(__dirname, "../dist")));
   // Handle React routing, return all requests to React app
-  app.get("*", function (req, res) {
+  app.get("*", function (_, res) {
     res.sendFile(path.join(__dirname, "../dist", "index.html"));
   });
 }
 
 // TODO : API routes
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.json({
     first: "Bob",
     last: "Billy",

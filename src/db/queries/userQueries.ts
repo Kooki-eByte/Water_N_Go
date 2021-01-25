@@ -1,6 +1,6 @@
 const dbModel = require("../../models");
 
-const addUserQuery = async <T extends { email: string; name: string }>(
+export const addUserQuery = async <T extends { email: string; name: string }>(
   data: T
 ) => {
   try {
@@ -23,7 +23,7 @@ const addUserQuery = async <T extends { email: string; name: string }>(
   }
 };
 
-const getUserQuery = async <T extends { email: string }>(data: T) => {
+export const getUserQuery = async <T extends { email: string }>(data: T) => {
   try {
     const user = await dbModel.User.findAll({
       where: data.email, // Email becasue we are using googles OAuth for logging in
@@ -42,9 +42,4 @@ const getUserQuery = async <T extends { email: string }>(data: T) => {
 
     return Promise.reject(err);
   }
-};
-
-module.exports = {
-  addUserQuery,
-  getUserQuery,
 };

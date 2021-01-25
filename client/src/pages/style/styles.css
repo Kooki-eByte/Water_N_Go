@@ -1,9 +1,35 @@
 /* This CSS is strictly for styling on all of the pages */
-body {
+* {
   margin: 0;
   padding: 0;
 }
 
+body {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background-color: #52ad9c;
+}
+
+.home-top-image {
+  height: 500px;
+  width: 100%;
+  /* object-fit: cover; */
+  background-size: cover;
+}
+
+.text-wrapper {
+  width: 100%;
+  position: relative;
+  margin-top: -35%;
+}
+
 .home-title {
   text-align: center;
+  font-size: 10vw;
+  color: #6cc551;
+}
+
+.text-content {
+  margin-top: 25%;
 }

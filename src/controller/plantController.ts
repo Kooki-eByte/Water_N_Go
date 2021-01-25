@@ -4,9 +4,9 @@ import {
   getPlantsQuery,
 } from "../db/queries/plantQueries";
 
-const getPlants = async (req: any, res: any) => {
+export const getPlants = async (_: any, res: any) => {
   try {
-    const plants = await getPlantsQuery(req.body);
+    const plants = await getPlantsQuery(); //req.body
 
     return res.status(200).json(plants);
   } catch (err) {
@@ -19,7 +19,7 @@ const getPlants = async (req: any, res: any) => {
   }
 };
 
-const addPlant = async (req: any, res: any) => {
+export const addPlant = async (req: any, res: any) => {
   try {
     const plant = await addPlantQuery(req.body);
     return res.status(200).json(plant);
@@ -33,7 +33,7 @@ const addPlant = async (req: any, res: any) => {
   }
 };
 
-const deletePlant = async (req: any, res: any) => {
+export const deletePlant = async (req: any, res: any) => {
   try {
     const deletedPlant = await deletePlantQuery(req.body);
     return res.status(200).json(deletedPlant);
@@ -45,10 +45,4 @@ const deletePlant = async (req: any, res: any) => {
 
     return res.status(400).json({ message: "Error deleting plant" });
   }
-};
-
-module.exports = {
-  addPlant,
-  getPlants,
-  deletePlant,
 };
