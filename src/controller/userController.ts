@@ -1,6 +1,6 @@
 import { addUserQuery, getUserQuery } from "../db/queries/userQueries";
 
-const addUser = async (req: any, res: any) => {
+export const addUser = async (req: any, res: any) => {
   try {
     const user = await addUserQuery(req.body);
 
@@ -12,7 +12,7 @@ const addUser = async (req: any, res: any) => {
   }
 };
 
-const loginUser = async (req: any, res: any) => {
+export const loginUser = async (req: any, res: any) => {
   try {
     const user = await getUserQuery(req.body);
 
@@ -25,9 +25,4 @@ const loginUser = async (req: any, res: any) => {
 
     return res.status(400).json({ message: "Error could not find the user" });
   }
-};
-
-module.exports = {
-  addUser,
-  loginUser,
 };

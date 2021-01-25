@@ -1,6 +1,6 @@
 const dbModel = require("../../models");
 
-const addPlantQuery = async <
+export const addPlantQuery = async <
   T extends {
     plantImage: string;
     name: string;
@@ -28,7 +28,8 @@ const addPlantQuery = async <
 };
 
 // Need to get userID to grab the write plants
-const getPlantsQuery = async (data: object) => {
+export const getPlantsQuery = async () => {
+  // data: object
   // <T extends {userId: string}>
   try {
     const plants = await dbModel.Plant.findAll({
@@ -43,7 +44,7 @@ const getPlantsQuery = async (data: object) => {
   }
 };
 
-const deletePlantQuery = async <T extends { id: string }>(data: T) => {
+export const deletePlantQuery = async <T extends { id: string }>(data: T) => {
   try {
     const deletedPlant = await dbModel.Plant.destroy({
       where: {
@@ -55,10 +56,4 @@ const deletePlantQuery = async <T extends { id: string }>(data: T) => {
   } catch (error) {
     return Promise.reject(error);
   }
-};
-
-module.exports = {
-  addPlantQuery,
-  getPlantsQuery,
-  deletePlantQuery,
 };
