@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { NavBar } from "./components/NavBar";
 import { AuthProvider } from "./context/auth";
 import { Home } from './pages/Home';
+import { Login } from './pages/Login';
 import { Member } from './pages/Member';
 
 
@@ -14,6 +15,7 @@ const App: React.FC = () => {
           <NavBar />
           <Route exact path="/" component={Home} />
           <Route exact path="/member" component={Member} />
+          <Route exact path="/login" component={Login} />
         </Router>
       </AuthProvider>
     </div>
