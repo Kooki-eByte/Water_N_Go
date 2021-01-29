@@ -1,23 +1,32 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { NavBar } from "./components/NavBar";
-import { AuthProvider } from "./context/auth";
 import { Home } from './pages/Home';
-import { Login } from './pages/Login';
 import { Member } from './pages/Member';
 
 
 const App: React.FC = () => {
+  const { isLoading, isAuthenticated } = useAuth0()
+
+  if (isLoading) return <div>Loading ...</div>
+
+  if (isAuthenticated) return (
+    <div>
+      <Router>
+        <NavBar />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/member" component={Member} />
+      </Router> 
+    </div>
+  )
+
   return (
     <div>
-      <AuthProvider>
-        <Router>
-          <NavBar />
-          <Route exact path="/" component={Home} />
-          <Route exact path="/member" component={Member} />
-          <Route exact path="/login" component={Login} />
-        </Router>
-      </AuthProvider>
+      <Router>
+        <NavBar />
+        <Route path="/" component={Home} />
+      </Router>
     </div>
   );
 }

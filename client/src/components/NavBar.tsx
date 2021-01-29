@@ -1,19 +1,19 @@
-import React, { useContext } from 'react'
-import { Navbar } from 'react-bootstrap'
-import { AuthContext } from '../context/auth'
-
-
+import { useAuth0 } from "@auth0/auth0-react";
+import React from 'react';
+import { Navbar } from 'react-bootstrap';
+import { LoginButton } from "./LoginButton";
+import { LogoutButton } from "./LogoutButton";
 
 export const NavBar: React.FC = () => {
-    const {user, logout} = useContext(AuthContext)
+    const { user, isAuthenticated } = useAuth0()
 
-    const navBar = !user ? (
+    const navBar = !isAuthenticated ? (
             <Navbar style={{background:"lightblue"}}>
                 <Navbar.Brand href="/">Water N Go</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                    <a href="/login">Sign-Up/Login</a>
+                    <LoginButton />
                 </Navbar.Text>
                 </Navbar.Collapse>
             </Navbar>) : (
@@ -22,14 +22,12 @@ export const NavBar: React.FC = () => {
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
-                        Signed in as: <a href="/">{user}</a>
+                        Signed in as: <a href="/member">{user.name}</a>
                     </Navbar.Text>
                     <button onClick={() => console.log("Add plant clicked")}>
                         Add Plant
                     </button>
-                    <button onClick={logout}>
-                        Logout
-                    </button>
+                    <LogoutButton />
                 </Navbar.Collapse>
             </Navbar>)
 
