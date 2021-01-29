@@ -7,19 +7,16 @@ import { AuthContext } from '../context/auth'
 export const NavBar: React.FC = () => {
     const {user, logout} = useContext(AuthContext)
 
-    if(!user) {
-        return (
+    const navBar = !user ? (
             <Navbar style={{background:"lightblue"}}>
                 <Navbar.Brand href="/">Water N Go</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                    <a href="/member">Sign-Up/Login</a>
+                    <a href="/login">Sign-Up/Login</a>
                 </Navbar.Text>
                 </Navbar.Collapse>
-            </Navbar>)
-    } else {
-        return (
+            </Navbar>) : (
             <Navbar style={{background:"lightblue"}}>
                 <Navbar.Brand href="/">Water N Go</Navbar.Brand>
                 <Navbar.Toggle />
@@ -35,5 +32,6 @@ export const NavBar: React.FC = () => {
                     </button>
                 </Navbar.Collapse>
             </Navbar>)
+
+            return navBar;
     }
-}

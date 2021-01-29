@@ -33,3 +33,12 @@ body {
 .text-content {
   margin-top: 25%;
 }
+
+/* Login button */
+.loginBtn,
+.logoutBtn {
+  margin: 2rem 0;
+  padding: 1rem 2rem;
+  width: 120px;
+  cursor: pointer;
+}
