@@ -8,7 +8,7 @@ import {
 const router = Router();
 
 // /api/plant/
-router.route("/").get(getPlants);
+router.route("/:userId").get(getPlants);
 
 // /api/plant/add
 router.route("/add").post(addPlant);

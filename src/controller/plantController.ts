@@ -4,9 +4,10 @@ import {
   getPlantsQuery,
 } from "../db/queries/plantQueries";
 
-export const getPlants = async (_: any, res: any) => {
+export const getPlants = async (req: any, res: any) => {
+  console.log("Req.body on plantcontroller", req.params.userId);
   try {
-    const plants = await getPlantsQuery(); //req.body
+    const plants = await getPlantsQuery(req.params.userId); //req.body
 
     return res.status(200).json(plants);
   } catch (err) {

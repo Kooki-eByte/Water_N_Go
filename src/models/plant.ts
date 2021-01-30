@@ -30,6 +30,10 @@ module.exports = function (sequelize: any, DataTypes: any) {
           max: 14,
         },
       },
+      userId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       freezeTableName: true,
