@@ -28,14 +28,14 @@ export const addPlantQuery = async <
 };
 
 // Need to get userID to grab the write plants
-export const getPlantsQuery = async () => {
-  // data: object
-  // <T extends {userId: string}>
+export const getPlantsQuery = async <T extends { userId: string }>(id: T) => {
+  console.log("Data from plantQueries.ts", id);
+
   try {
     const plants = await dbModel.Plant.findAll({
-      // where: {
-      //   userId: data.userId,
-      // },
+      where: {
+        userId: id,
+      },
     });
 
     return Promise.resolve(plants);

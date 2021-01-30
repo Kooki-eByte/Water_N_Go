@@ -6,6 +6,7 @@ import path from "path";
 // Allow backend to access .env file
 config();
 
+// const vars
 const PORT = process.env.PORT || 3001;
 const app = express();
 const db = require("./models");
