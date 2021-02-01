@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Button, Navbar } from 'react-bootstrap';
 import { LoginButton } from "./LoginButton";
 import { LogoutButton } from "./LogoutButton";
 
@@ -8,7 +8,7 @@ export const NavBar: React.FC = () => {
     const { user, isAuthenticated } = useAuth0()
 
     const navBar = !isAuthenticated ? (
-            <Navbar style={{background:"lightblue"}}>
+            <Navbar fixed='top' style={{background:"lightblue", width: '100%'}}>
                 <Navbar.Brand href="/">Water N Go</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
@@ -21,12 +21,10 @@ export const NavBar: React.FC = () => {
                 <Navbar.Brand href="/">Water N Go</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
+                    <Navbar.Text style={{marginRight: "10px"}}>
                         Signed in as: <a href="/member">{user.name}</a>
                     </Navbar.Text>
-                    <button onClick={() => console.log("Add plant clicked")}>
-                        Add Plant
-                    </button>
+                    <Button href="/addplant" variant="outline-success">Add Plant</Button>
                     <LogoutButton />
                 </Navbar.Collapse>
             </Navbar>)

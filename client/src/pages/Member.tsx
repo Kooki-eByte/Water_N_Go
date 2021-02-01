@@ -76,7 +76,7 @@ export const Member: React.FC = () => {
                 </Col>
             </Row>
             <h2>Your plants</h2>
-            <Row>
+            <Row className="plant-card-row">
                 {allPlants.length >= 1 ? (
                     allPlants.map((plant : Plant) => {
                         return <PlantCard key={plant.id} {...plant} />

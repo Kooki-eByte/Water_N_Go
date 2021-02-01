@@ -7,7 +7,7 @@
 body {
   width: 100%;
   height: auto;
-  overflow: hidden;
+  /* overflow: hidden; */
   background-color: #52ad9c;
 }
 
@@ -37,12 +37,33 @@ body {
 /* Login button */
 .loginBtn,
 .logoutBtn {
-  padding: 1rem 2rem;
-  width: 120px;
+  margin-left: 5px;
+  padding: 5px 3px;
+  width: 80px;
   cursor: pointer;
+  text-align: center;
 }
 
 .profile-image {
   border-radius: 50%;
   border: 3px solid black;
+}
+
+.plant-card-row {
+  justify-content: center;
+}
+
+.waterBtn {
+  height: 4rem;
+  width: 4rem;
+}
+
+.deleteBtn {
+  height: 4rem;
+  width: 4rem;
+}
+
+.plant-buttons {
+  display: flex;
+  justify-content: space-around;
 }

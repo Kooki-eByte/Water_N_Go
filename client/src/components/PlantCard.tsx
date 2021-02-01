@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 interface PlantCardProps {
   plantImage: string
@@ -13,14 +13,21 @@ interface PlantCardProps {
 }
 
 export const PlantCard: React.FC<PlantCardProps> = ({plantImage, name, isWatered, daysToWaterAgain, userId,id}) => {
+  console.log(plantImage, isWatered, userId, id)
   return (
-    <Col xs="12" sm="12" md="4" lg="2" xl="2">
-      <ol>
-        <li>{plantImage}</li>
-        <li>{name}</li>
-        <li>{`is watered : ${isWatered}`}</li>
-        <li>{daysToWaterAgain}</li>
-      </ol>
-    </Col>
+    <Card style={{ width: '15rem', margin: '10px' }}>
+      <Card.Img variant="top" src="https://via.placeholder.com/300" className="plant-image"/> 
+      <Card.Body>
+        <Card.Title>{name}</Card.Title>
+        <Card.Text>
+          Days to water again : {daysToWaterAgain}
+        </Card.Text>
+        <div className="plant-buttons">
+          <Button className="waterBtn" variant="primary" onClick={() => console.log(`isWater will equal true AND reset the daysToWaterAgain`)}>💧</Button>
+          <Button className="deleteBtn" variant="warning" onClick={() => console.log(`Deleting plant ${id}`)
+          }>🗑</Button>
+        </div>
+      </Card.Body>
+    </Card>
   )
 }
