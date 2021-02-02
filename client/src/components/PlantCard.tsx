@@ -16,7 +16,7 @@ export const PlantCard: React.FC<PlantCardProps> = ({plantImage, name, isWatered
   console.log(plantImage, isWatered, userId, id)
   return (
     <Card style={{ width: '15rem', margin: '10px' }}>
-      <Card.Img variant="top" src="https://via.placeholder.com/300" className="plant-image"/> 
+      <Card.Img variant="top" src="https://via.placeholder.com/300" className="plant-card-image"/> 
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>
