@@ -4,8 +4,8 @@ import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 
 export const AddPlant: React.FC = () => {
   const {user} = useAuth0()
+  const [plantImage, setPlantImage] : any = useState("https://www.kindpng.com/picc/m/564-5640631_file-antu-insert-image-svg-insert-image-here.png")
   const [plantData, setPlantData] : any = useState({
-    plantImg:"https://i1.wp.com/www.flowersandcompany.net/wp-content/uploads/2014/06/insert-picture-here.jpg",
     plantName: "",
     howLongToWaterAgain: 0,
     maxDaysToWaterAgain: 0,
@@ -14,24 +14,25 @@ export const AddPlant: React.FC = () => {
   const [daysToWater, setDaysToWater] = useState(0)
   const [isDisabled, setIsDisabled] = useState(true)
 
-  const {plantImg} = plantData
-  const imageHandler = (e : any) => {
-    const reader = new FileReader()
+  // Handles the image and turns the image into a DataUrl to be used in Local Storage
 
-    reader.onload = () => {
-      if(reader.readyState === 2) {
-        // console.log(reader.result)
-        setPlantData({plantImg: reader.result})
-      }
-    }
+  const imageHandler = async (e : any) => {
+    const reader = new FileReader()
     reader.readAsDataURL(e.target.files[0])
+
+    await reader.addEventListener("load", () => {
+      setPlantImage(`${reader.result}`)
+      
+    })
   }
 
+  // stores the plantName given to the plantData object state
   function handlePlantName(e : React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
-    setPlantData({...plantData,plantName: e.target.value, userId:user.sub})
+    setPlantData({...plantData,plantName: e.target.value.trim(), userId:user.sub})
   }
 
+  // Handles the max days and subtract it by how many days ago the user had watered their plants
   function handleDays(e : React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
     if(daysToWater === 0) {
@@ -48,6 +49,29 @@ export const AddPlant: React.FC = () => {
     setIsDisabled(false)
   }
 
+  // Sending plant data to the backend POST
+  async function submitPlantData(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+    e.preventDefault()
+    console.log(plantData)
+    localStorage.setItem(`${plantData.plantName}`, `${plantImage}`)
+
+  //   try {
+  //     await fetch("/api/plant/add", {
+  //       method: "POST",
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(plantData)
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {console.log("message ", data)})
+  //       .catch(err => {throw err})
+  //   } catch(err) {
+  //     console.log(err)
+  //   }
+    
+  }
+
   return (
     <Container className="add-plant-container mt-4">
         <Row>
@@ -60,7 +84,7 @@ export const AddPlant: React.FC = () => {
         <Row className="add-plant-row">
           <Col >
             <div className="img-holder">
-              <Image src={plantImg} alt="plant" id="plant-image" className="plant-image" thumbnail/>
+              <Image src={plantImage} alt="plant" id="plant-image" className="plant-image" thumbnail/>
             </div>
             <input type="file" name="image-upload" id="input-plant-image" accept="image/*" onChange={(e) => imageHandler(e)}/>
             <div className="label">
@@ -81,6 +105,7 @@ export const AddPlant: React.FC = () => {
               <Form.Group controlId="formBasicSelectDaysToWater" >
                 <Form.Label>How Many Days Until Your Plant Should Be Watered Again?</Form.Label>
                 <Form.Control as="select" style={{width:"20%"}} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDaysToWater(parseInt(event.target.value))}>
+                  <option disabled>Choose:</option>
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -94,6 +119,7 @@ export const AddPlant: React.FC = () => {
               <Form.Group controlId="formBasicSelectDaysSinceWatered" >
                 <Form.Label>How Many Days Ago Since You Last Watered Your Plant?</Form.Label>
                 <Form.Control as="select" style={{width:"20%"}} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {handleDays(event)}}>
+                  <option disabled>Choose:</option>
                   <option>0</option>
                   <option>1</option>
                   <option>2</option>
@@ -101,11 +127,10 @@ export const AddPlant: React.FC = () => {
                   <option>4</option>
                   <option>5</option>
                   <option>6</option>
-                  <option>7</option>
                 </Form.Control>
               </Form.Group>
 
-              <Button variant="success" onClick={(e) => {console.log(plantData)}} disabled={isDisabled}>
+              <Button variant="success" onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {submitPlantData(e)}} disabled={isDisabled}>
                 Submit
               </Button>
             </Form>

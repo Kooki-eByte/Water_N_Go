@@ -20,9 +20,26 @@ export const getPlants = async ({ params }: any, res: any) => {
   }
 };
 
-export const addPlant = async (req: any, res: any) => {
+type plantData = {
+  body: {
+    plantImg: string;
+    plantName: string;
+    userId: string;
+    maxDaysToWaterAgain: number;
+  };
+};
+
+export const addPlant = async ({ body }: plantData, res: any) => {
+  const { plantImg, plantName, userId, maxDaysToWaterAgain } = body;
+  console.log("plant controller ts file req.body is : ", body);
   try {
-    const plant = await addPlantQuery(req.body);
+    const plant = await addPlantQuery({
+      plantImage: plantImg,
+      name: plantName,
+      isWatered: true,
+      id: userId,
+      daysToWaterAgain: maxDaysToWaterAgain,
+    });
     return res.status(200).json(plant);
   } catch (err) {
     console.log(

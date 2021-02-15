@@ -2,12 +2,6 @@ module.exports = function (sequelize: any, DataTypes: any) {
   const Plant = sequelize.define(
     "Plant",
     {
-      // The plant image is the image the user gives
-      plantImage: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
       // name of plant
       name: {
         type: DataTypes.STRING,
@@ -42,3 +36,4 @@ module.exports = function (sequelize: any, DataTypes: any) {
 
   return Plant;
 };
+//

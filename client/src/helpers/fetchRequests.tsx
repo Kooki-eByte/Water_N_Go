@@ -12,3 +12,4 @@ export async function get<T>(path: string, config?: RequestInit): Promise<T> {
 const init = { method: "get", ...config };
 return await http<T>(path, init);
 }
+
