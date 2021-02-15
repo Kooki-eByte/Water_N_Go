@@ -2,19 +2,19 @@ const dbModel = require("../../models");
 
 export const addPlantQuery = async <
   T extends {
-    plantImage: string;
     name: string;
     isWatered: boolean;
     daysToWaterAgain: number;
+    id: string;
   }
 >(
   data: T
 ) => {
   try {
     const plant = await dbModel.Plant.create({
-      plantImage: data.plantImage,
       name: data.name,
       isWatered: data.isWatered,
+      userId: data.id,
       daysToWaterAgain: data.daysToWaterAgain,
     });
     if (!plant) {

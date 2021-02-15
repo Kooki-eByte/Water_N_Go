@@ -12,11 +12,14 @@ interface PlantCardProps {
   id: string
 }
 
-export const PlantCard: React.FC<PlantCardProps> = ({plantImage, name, isWatered, daysToWaterAgain, userId,id}) => {
-  console.log(plantImage, isWatered, userId, id)
+export const PlantCard: React.FC<PlantCardProps> = ({name, isWatered, daysToWaterAgain, userId,id}) => {
+  console.log(isWatered, userId, id)
+
+  const plantImage = localStorage.getItem(name)
+
   return (
     <Card style={{ width: '15rem', margin: '10px' }}>
-      <Card.Img variant="top" src="https://via.placeholder.com/300" className="plant-card-image"/> 
+      <Card.Img variant="top" src={plantImage!} className="plant-card-image"/> 
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>

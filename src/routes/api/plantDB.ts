@@ -16,6 +16,4 @@ router.route("/add").post(addPlant);
 // /api/plant/delete
 router.route("/delete").delete(deletePlant);
 
-// TODO - Create a update route to update info of the plant
-
 module.exports = router;
