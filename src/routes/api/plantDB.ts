@@ -7,7 +7,7 @@ import {
 
 const router = Router();
 
-// /api/plant/
+// /api/plant/:userId
 router.route("/:userId").get(getPlants);
 
 // /api/plant/add

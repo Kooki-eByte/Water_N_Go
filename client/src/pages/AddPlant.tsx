@@ -1,10 +1,14 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useState } from 'react';
-import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { PlantForm } from "../components/PlantForm";
 
 export const AddPlant: React.FC = () => {
   const {user} = useAuth0()
   const [plantImage, setPlantImage] : any = useState("https://www.kindpng.com/picc/m/564-5640631_file-antu-insert-image-svg-insert-image-here.png")
+  
+  
+
   const [plantData, setPlantData] : any = useState({
     plantName: "",
     howLongToWaterAgain: 0,
@@ -13,6 +17,8 @@ export const AddPlant: React.FC = () => {
   })
   const [daysToWater, setDaysToWater] = useState(0)
   const [isDisabled, setIsDisabled] = useState(true)
+
+  
 
   // Handles the image and turns the image into a DataUrl to be used in Local Storage
 
@@ -55,22 +61,24 @@ export const AddPlant: React.FC = () => {
     console.log(plantData)
     localStorage.setItem(`${plantData.plantName}`, `${plantImage}`)
 
-  //   try {
-  //     await fetch("/api/plant/add", {
-  //       method: "POST",
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(plantData)
-  //     })
-  //       .then((response) => response.json())
-  //       .then((data) => {console.log("message ", data)})
-  //       .catch(err => {throw err})
-  //   } catch(err) {
-  //     console.log(err)
-  //   }
+    try {
+      await fetch("/api/plant/add", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(plantData)
+      })
+        .then((response) => response.json())
+        .then((data) => {console.log("message ", data)})
+        .catch(err => {throw err})
+    } catch(err) {
+      console.log(err)
+    }
     
   }
+
+  // TODO: Have image be its own component so that we can deal with that data on its own and seperate it from the plant name and other data requested
 
   return (
     <Container className="add-plant-container mt-4">
@@ -83,13 +91,7 @@ export const AddPlant: React.FC = () => {
         <h2 style={{textAlign: "center"}}>Add Your Plant to Water "N" Go</h2>
         <Row className="add-plant-row">
           <Col >
-            <div className="img-holder">
-              <Image src={plantImage} alt="plant" id="plant-image" className="plant-image" thumbnail/>
-            </div>
-            <input type="file" name="image-upload" id="input-plant-image" accept="image/*" onChange={(e) => imageHandler(e)}/>
-            <div className="label">
-              <label htmlFor="input-plant-image" className="image-upload">Choose a image</label>
-            </div>
+            <PlantForm />
             <br/>
           </Col>
         </Row>
@@ -135,8 +137,6 @@ export const AddPlant: React.FC = () => {
               </Button>
             </Form>
         </Row>
-                
-        
     </Container>
   );
 }
