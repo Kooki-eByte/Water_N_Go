@@ -1,11 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from 'react';
 
-interface LoginButtonProps {
-
-}
-
-export const LoginButton: React.FC<LoginButtonProps> = () => {
+export const LoginButton: React.FC = () => {
     const {loginWithRedirect} = useAuth0()
 
         return (
