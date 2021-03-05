@@ -45,13 +45,7 @@ export const AddPlant: React.FC = () => {
       return alert("Please select how many days you want to wait to water your plant please.")
     }
 
-    let daysLeftToWater = daysToWater - parseInt(e.target.value)
-
-    if (daysLeftToWater <= 0) {
-      return alert("Cannot have days to water again less days than How long ago since plant had water.")
-    }
-
-    setPlantData({...plantData,howLongToWaterAgain: daysLeftToWater, maxDaysToWaterAgain: daysToWater, userId:user.sub})
+    setPlantData({...plantData, maxDaysToWaterAgain: daysToWater, userId:user.sub})
     setIsDisabled(false)
   }
 
@@ -117,21 +111,6 @@ export const AddPlant: React.FC = () => {
                   <option>7</option>
                 </Form.Control>
               </Form.Group>
-
-              <Form.Group controlId="formBasicSelectDaysSinceWatered" >
-                <Form.Label>How Many Days Ago Since You Last Watered Your Plant?</Form.Label>
-                <Form.Control as="select" style={{width:"20%"}} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {handleDays(event)}}>
-                  <option disabled>Choose:</option>
-                  <option>0</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                  <option>6</option>
-                </Form.Control>
-              </Form.Group>
-
               <Button variant="success" onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {submitPlantData(e)}} disabled={isDisabled}>
                 Submit
               </Button>
