@@ -22,45 +22,47 @@ export const getPlants = async ({ params }: any, res: any) => {
 
 type plantData = {
   body: {
-    plantImg: string;
+    plantImageData: string;
     plantName: string;
     userId: string;
-    maxDaysToWaterAgain: number;
+    howLongToWaterAgain: number;
   };
 };
 
 export const addPlant = async ({ body }: plantData, res: any) => {
-  const { plantImg, plantName, userId, maxDaysToWaterAgain } = body;
+  const { plantImageData, plantName, userId, howLongToWaterAgain } = body;
   console.log("plant controller ts file req.body is : ", body);
-  try {
-    const plant = await addPlantQuery({
-      plantImage: plantImg,
-      name: plantName,
-      isWatered: true,
-      id: userId,
-      daysToWaterAgain: maxDaysToWaterAgain,
-    });
-    return res.status(200).json(plant);
-  } catch (err) {
-    console.log(
-      "🚀 ~ file: plantController.ts ~ line 21 ~ addPlant ~ err",
-      err
-    );
 
-    return res.status(400).json({ message: err });
-  }
+  await addPlantQuery({
+    plantImage: plantImageData,
+    name: plantName,
+    isWatered: true,
+    id: userId,
+    daysToWaterAgain: howLongToWaterAgain,
+  })
+    .then((res) => {
+      res.json({ message: "Successful!" });
+    })
+    .catch((err) => {
+      console.log(
+        "🚀 ~ file: plantController.ts ~ line 48 ~ addPlant ~ err",
+        err
+      );
+
+      res.json({ message: err });
+    });
 };
 
 export const deletePlant = async (req: any, res: any) => {
   try {
     const deletedPlant = await deletePlantQuery(req.body);
-    return res.status(200).json(deletedPlant);
+    return res.json(deletedPlant);
   } catch (err) {
     console.log(
       "🚀 ~ file: plantController.ts ~ line 37 ~ deletePlant ~ err",
       err
     );
 
-    return res.status(400).json({ message: "Error deleting plant" });
+    return res.json({ message: "Error deleting plant" });
   }
 };

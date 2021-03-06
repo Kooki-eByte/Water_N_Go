@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card } from "react-bootstrap";
 
 interface PlantCardProps {
-  plantImage: string
+  plantImageData: string
   name: string
   isWatered: boolean
   daysToWaterAgain: number
@@ -12,14 +12,12 @@ interface PlantCardProps {
   id: string
 }
 
-export const PlantCard: React.FC<PlantCardProps> = ({name, isWatered, daysToWaterAgain, userId,id}) => {
+export const PlantCard: React.FC<PlantCardProps> = ({ plantImageData, name, isWatered, daysToWaterAgain, userId,id}) => {
   console.log(isWatered, userId, id)
 
-  const plantImage = localStorage.getItem(name)
-
   return (
-    <Card style={{ width: '15rem', margin: '10px' }}>
-      <Card.Img variant="top" src={plantImage!} className="plant-card-image"/> 
+    <Card style={{ width: '15rem',objectFit: "cover", margin: '10px' }}>
+      <Card.Img variant="top" src={plantImageData!} className="plant-card-image"/> 
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>

@@ -6,11 +6,15 @@ export const PlantForm: React.FC = () => {
   const [filename, setFilename] : [string, Dispatch<SetStateAction<string>>] = useState("Please choose a image ending in .jpg or .png")
   const [image, setImage] = useState("https://via.placeholder.com/150")
 
+  useEffect(() => {
+    localStorage.removeItem("recent-image")
+  }, [])
+  
 
-  const onChange = (event: any ) => {
-    const file = event.target.files[0]
+  const onChange = (e: any ) => {
+    const file = e.target.files[0]
     
-    if (file.name == null) return setFilename("Please choose a image ending in .jpg or .png");
+    if (!file.name) return setFilename("Please choose a image ending in .jpg or .png");
     
     setFilename(file.name);
     changeImage(file)
@@ -29,13 +33,8 @@ export const PlantForm: React.FC = () => {
     });
 
     reader.readAsDataURL(file)
-    
-    // TODO: Figure out how to work formData and then do a local storage so that in the add plant page I can just grab that plus the other data to POST it to the DB...
+ 
   }
-
-  useEffect(() => {
-    console.log("Image state", image);
-}, [image]);
 
   return (
     <>
@@ -49,7 +48,7 @@ export const PlantForm: React.FC = () => {
             name="file"
             className="custom-file-input"
             id="file"
-            onChange={(event : React.InputHTMLAttributes<HTMLInputElement>) => onChange(event)}
+            onChange={(e : React.InputHTMLAttributes<HTMLInputElement>) => onChange(e)}
           />
           <label style={{marginLeft: '15rem', marginRight: '15rem'}} className="custom-file-label" htmlFor="file">
               {filename}

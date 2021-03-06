@@ -1,7 +1,9 @@
 const dbModel = require("../../models");
 
+// /api/plant/add
 export const addPlantQuery = async <
   T extends {
+    plantImage: string;
     name: string;
     isWatered: boolean;
     daysToWaterAgain: number;
@@ -11,17 +13,18 @@ export const addPlantQuery = async <
   data: T
 ) => {
   try {
-    const plant = await dbModel.Plant.create({
+    const plantData = await dbModel.Plant.create({
+      plantImageData: data.plantImage,
       name: data.name,
       isWatered: data.isWatered,
       userId: data.id,
       daysToWaterAgain: data.daysToWaterAgain,
     });
-    if (!plant) {
+    if (!plantData) {
       throw new Error("Add plant was not saved.");
     }
 
-    return Promise.resolve(plant);
+    return Promise.resolve(plantData);
   } catch (error) {
     return Promise.reject(error);
   }
