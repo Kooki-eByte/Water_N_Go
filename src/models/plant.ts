@@ -2,6 +2,13 @@ module.exports = function (sequelize: any, DataTypes: any) {
   const Plant = sequelize.define(
     "Plant",
     {
+      plantImageData: {
+        type: DataTypes.TEXT("medium"),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
       // name of plant
       name: {
         type: DataTypes.STRING,

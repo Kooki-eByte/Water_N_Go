@@ -1,78 +1,68 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { PlantForm } from "../components/PlantForm";
 
 export const AddPlant: React.FC = () => {
   const {user} = useAuth0()
-  const [plantImage, setPlantImage] : any = useState("https://www.kindpng.com/picc/m/564-5640631_file-antu-insert-image-svg-insert-image-here.png")
-  
-  
-
   const [plantData, setPlantData] : any = useState({
+    
     plantName: "",
-    howLongToWaterAgain: 0,
-    maxDaysToWaterAgain: 0,
+    howLongToWaterAgain: null,
     userId: user.sub
   })
-  const [daysToWater, setDaysToWater] = useState(0)
   const [isDisabled, setIsDisabled] = useState(true)
 
-  
-
-  // Handles the image and turns the image into a DataUrl to be used in Local Storage
-
-  const imageHandler = async (e : any) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(e.target.files[0])
-
-    await reader.addEventListener("load", () => {
-      setPlantImage(`${reader.result}`)
-      
-    })
+  // stores the plantName given to the plantData object state e.target.value.trim()
+  const handlePlantName = (e : React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    setPlantData({ ...plantData, plantName: e.target.value.trim()})
   }
 
-  // stores the plantName given to the plantData object state
-  function handlePlantName(e : React.ChangeEvent<HTMLInputElement>) {
+  const handleDaysLeftToWaterPlant = (e : React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    setPlantData({...plantData,plantName: e.target.value.trim(), userId:user.sub})
-  }
-
-  // Handles the max days and subtract it by how many days ago the user had watered their plants
-  function handleDays(e : React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault()
-    if(daysToWater === 0) {
-      return alert("Please select how many days you want to wait to water your plant please.")
-    }
-
-    setPlantData({...plantData, maxDaysToWaterAgain: daysToWater, userId:user.sub})
-    setIsDisabled(false)
+    setPlantData({ ...plantData, howLongToWaterAgain: parseInt(e.target.value)})
   }
 
   // Sending plant data to the backend POST
-  async function submitPlantData(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+  const submitPlantData = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault()
     console.log(plantData)
-    localStorage.setItem(`${plantData.plantName}`, `${plantImage}`)
-
-    try {
-      await fetch("/api/plant/add", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(plantData)
-      })
-        .then((response) => response.json())
-        .then((data) => {console.log("message ", data)})
-        .catch(err => {throw err})
-    } catch(err) {
-      console.log(err)
+    if (!localStorage.getItem("recent-image")) return;
+    let finalizedPlantData = {
+      plantImageData: localStorage.getItem("recent-image"),
+      ...plantData
     }
+
+    console.log(finalizedPlantData);
+    
+    await fetch("/api/plant/add", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(finalizedPlantData)
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("success");
+        window.location.href="/member"
+      })
+      .catch(err => console.log({ errorMessage: err})
+      )
     
   }
 
-  // TODO: Have image be its own component so that we can deal with that data on its own and seperate it from the plant name and other data requested
+  // useEffect used for checking if the submit button is ready to be on by checking if each Key has a value.
+  useEffect(() => {
+    console.log(plantData);
+    
+    // if (!plantData.plantImageData) return;
+    if (!plantData.plantName) return;
+    if (!plantData.howLongToWaterAgain) return;
+    if (!plantData.userId) return;
+    setIsDisabled(false)
+}, [plantData]);
 
   return (
     <Container className="add-plant-container mt-4">
@@ -94,13 +84,13 @@ export const AddPlant: React.FC = () => {
               <Form.Group controlId="formBasicName">
                 <Form.Label>What's Your Plants Name?</Form.Label>
                 <Col xs="auto">
-                  <Form.Control type="username" placeholder="Bob Moss" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {handlePlantName(event)}} />
+                  <Form.Control type="username" placeholder="Bob Moss" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {handlePlantName(e)}} />
                 </Col>
               </Form.Group>
 
               <Form.Group controlId="formBasicSelectDaysToWater" >
                 <Form.Label>How Many Days Until Your Plant Should Be Watered Again?</Form.Label>
-                <Form.Control as="select" style={{width:"20%"}} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDaysToWater(parseInt(event.target.value))}>
+                <Form.Control as="select" style={{width:"20%"}} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {handleDaysLeftToWaterPlant(e)}}>
                   <option disabled>Choose:</option>
                   <option>1</option>
                   <option>2</option>

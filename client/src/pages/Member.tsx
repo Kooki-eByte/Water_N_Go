@@ -7,7 +7,7 @@ import { get } from "../helpers/fetchRequests";
 import "./style/styles.css";
 
 type Plant = {
-    plantImage: string
+    plantImageData: string
     name: string
     isWatered: boolean
     daysToWaterAgain: number
@@ -30,7 +30,8 @@ const showNotification = () => {
 console.log(Notification.permission);
 
 if (Notification.permission === "granted") {
-    showNotification()
+    let daysToWater = 1
+    if (daysToWater === 0) showNotification()
 } else if (Notification.permission !== "denied") {
     Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
