@@ -31,7 +31,7 @@ export const addPlantQuery = async <
 };
 
 // Need to get userID to grab the write plants
-export const getPlantsQuery = async <T extends { userId: string }>(id: T) => {
+export const getPlantsQuery = async <T extends { userId: number }>(id: T) => {
   console.log("Data from plantQueries.ts", id);
 
   try {
