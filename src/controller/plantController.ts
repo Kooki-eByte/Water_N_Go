@@ -5,7 +5,6 @@ import {
 } from "../db/queries/plantQueries";
 
 export const getPlants = async ({ params }: any, res: any) => {
-  console.log("Req.body on plantcontroller", params.userId);
   try {
     const plants = await getPlantsQuery(params.userId); //req.body
 
@@ -31,7 +30,6 @@ type plantData = {
 
 export const addPlant = async ({ body }: plantData, res: any) => {
   const { plantImageData, plantName, userId, howLongToWaterAgain } = body;
-  console.log("plant controller ts file req.body is : ", body);
 
   await addPlantQuery({
     plantImage: plantImageData,
@@ -41,7 +39,7 @@ export const addPlant = async ({ body }: plantData, res: any) => {
     daysToWaterAgain: howLongToWaterAgain,
   })
     .then((res) => {
-      res.json({ message: "Successful!" });
+      return { message: `Successful! ${res}` };
     })
     .catch((err) => {
       console.log(

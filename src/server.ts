@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import path from "path";
+
 // Allow backend to access .env file
 config();
 
@@ -27,7 +28,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// TODO : API routes
 app.get("/", (_, res) => {
   res.json({
     first: "Bob",
