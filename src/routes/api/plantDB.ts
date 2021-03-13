@@ -1,9 +1,16 @@
 import { Router } from "express";
+import rateLimit from "express-rate-limit";
 import {
   addPlant,
   deletePlant,
   getPlants,
 } from "../../controller/plantController";
+
+const apiLimiter = rateLimit({
+  max: 10,
+  windowMs: 30 * 1000,
+  message: "Too many requests",
+});
 
 const router = Router();
 
@@ -11,7 +18,7 @@ const router = Router();
 router.route("/:userId").get(getPlants);
 
 // /api/plant/add
-router.route("/add").post(addPlant);
+router.use("/add", apiLimiter, addPlant); // .post(addPlant);
 
 // /api/plant/delete
 router.route("/delete").delete(deletePlant);

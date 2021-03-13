@@ -27,7 +27,7 @@ export const AddPlant: React.FC = () => {
   // Sending plant data to the backend POST
   const submitPlantData = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault()
-    console.log(plantData)
+    
     if (!localStorage.getItem("recent-image")) return;
     let finalizedPlantData = {
       plantImageData: localStorage.getItem("recent-image"),
@@ -45,7 +45,7 @@ export const AddPlant: React.FC = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("success");
+        console.log(data);
         window.location.href="/member"
       })
       .catch(err => console.log({ errorMessage: err})
