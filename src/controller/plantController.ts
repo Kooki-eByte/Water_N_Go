@@ -39,7 +39,7 @@ export const addPlant = async ({ body }: plantData, res: any) => {
     daysToWaterAgain: howLongToWaterAgain,
   })
     .then((res) => {
-      return { message: `Successful! ${res}` };
+      res.json({ message: "Successful!" });
     })
     .catch((err) => {
       console.log(

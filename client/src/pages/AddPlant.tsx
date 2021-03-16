@@ -34,7 +34,7 @@ export const AddPlant: React.FC = () => {
       ...plantData
     }
 
-    console.log(finalizedPlantData);
+    // console.log(finalizedPlantData);
     
     await fetch("/api/plant/add", {
       method: "POST",
@@ -43,11 +43,12 @@ export const AddPlant: React.FC = () => {
       },
       body: JSON.stringify(finalizedPlantData)
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        window.location.href="/member"
-      })
+      .then((response) => {
+        response.json()
+        console.log("Hellllloooooooo");
+        
+        window.location.href="/member"}
+      )
       .catch(err => console.log({ errorMessage: err})
       )
     
@@ -55,8 +56,6 @@ export const AddPlant: React.FC = () => {
 
   // useEffect used for checking if the submit button is ready to be on by checking if each Key has a value.
   useEffect(() => {
-    console.log(plantData);
-    
     // if (!plantData.plantImageData) return;
     if (!plantData.plantName) return;
     if (!plantData.howLongToWaterAgain) return;
