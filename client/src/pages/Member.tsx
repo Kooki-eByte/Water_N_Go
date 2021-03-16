@@ -17,28 +17,6 @@ type Plant = {
   id: string
 }
 
-const showNotification = () => {
-  const notification = new Notification("New Message from water 'N' go!", {
-      body: "Hello there, you have a plant that needs watering!"
-  })
-
-  console.log(notification);
-}
-
-// default (not yes or no), granted (yes), denied(no)
-console.log(Notification.permission);
-
-if (Notification.permission === "granted") {
-  let daysToWater = 1
-  if (daysToWater === 0) showNotification()
-} else if (Notification.permission !== "denied") {
-  Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-          showNotification()
-      }
-  })
-}
-
 export const Member: React.FC = () => {
     const [allPlants, setAllPlants] = useState<Plant[]>([])
     const { user } = useAuth0()
