@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Card } from "react-bootstrap";
 import { get } from "../helpers/fetchRequests";
-
+import { plantCountDown } from "../helpers/plantCountDown";
+import { pushNotify } from "../helpers/pushNotify";
 
 type Plant = {
   plantImageData: string
@@ -15,10 +16,8 @@ type Plant = {
 }
 
 export const PlantCard: React.FC <any> = (props) => {
-  const { plantImageData, name, isWatered, daysToWaterAgain, userId,id} = props
+  const { plantImageData, name, daysToWaterAgain, userId,id, updatedAt} = props
 
-
-  console.log(isWatered, userId, id)
 
   const deletePlant = async (plantId : number) => {
     let deletedPlantId = {
@@ -54,14 +53,21 @@ export const PlantCard: React.FC <any> = (props) => {
       console.log("err", err);
     }
   }
-
+  
+  let daysLeftToWater = plantCountDown(daysToWaterAgain, updatedAt)
+  // if daysLeftToWater = 0
+  if (daysLeftToWater === 0) {
+    // push notify to water X plant
+    pushNotify(Notification.permission, name)
+  }
+   
   return (
     <Card style={{ width: '15rem',objectFit: "cover", margin: '10px' }}>
       <Card.Img variant="top" src={plantImageData!} className="plant-card-image"/> 
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>
-          Days to water again : {daysToWaterAgain}
+          Days to water again : {daysLeftToWater}
         </Card.Text>
         <div className="plant-buttons">
           <Button className="waterBtn" variant="primary" onClick={() => console.log(`isWater will equal true AND reset the daysToWaterAgain`)}>💧</Button>
