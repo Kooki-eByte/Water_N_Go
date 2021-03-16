@@ -48,6 +48,7 @@ export const PlantForm: React.FC = () => {
             name="file"
             className="custom-file-input"
             id="file"
+            accept="image/*"
             onChange={(e : React.InputHTMLAttributes<HTMLInputElement>) => onChange(e)}
           />
           <label style={{marginLeft: '15rem', marginRight: '15rem'}} className="custom-file-label" htmlFor="file">

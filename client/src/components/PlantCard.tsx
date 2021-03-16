@@ -1,16 +1,7 @@
 import React from 'react';
 import { Button, Card } from "react-bootstrap";
 import { get } from "../helpers/fetchRequests";
-// interface PlantCardProps {
-//   plantImageData: string
-//   name: string
-//   isWatered: boolean
-//   daysToWaterAgain: number
-//   createdAt: string
-//   updatedAt: string
-//   userId: string
-//   id: string
-// }
+
 
 type Plant = {
   plantImageData: string
@@ -24,7 +15,7 @@ type Plant = {
 }
 
 export const PlantCard: React.FC <any> = (props) => {
-  const { plantImageData, name, isWatered, daysToWaterAgain, userId,id,} = props
+  const { plantImageData, name, isWatered, daysToWaterAgain, userId,id} = props
 
 
   console.log(isWatered, userId, id)
