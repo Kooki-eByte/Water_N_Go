@@ -2,6 +2,7 @@ import {
   addPlantQuery,
   deletePlantQuery,
   getPlantsQuery,
+  updatePlantQuery,
 } from "../db/queries/plantQueries";
 
 export const getPlants = async ({ params }: any, res: any) => {
@@ -62,5 +63,18 @@ export const deletePlant = async (req: any, res: any) => {
     );
 
     return res.json({ message: "Error deleting plant" });
+  }
+};
+
+export const updatePlant = async (req: any, res: any) => {
+  try {
+    const result = await updatePlantQuery(req.body);
+    return res.json(result);
+  } catch (err) {
+    console.log(
+      "🚀 ~ file: plantController.ts ~ line 74 ~ updatePlant ~ err",
+      err
+    );
+    return res.json({ message: "Error trying to update plant info" });
   }
 };

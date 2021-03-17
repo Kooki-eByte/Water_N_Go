@@ -18,6 +18,33 @@ type Plant = {
 export const PlantCard: React.FC <any> = (props) => {
   const { plantImageData, name, daysToWaterAgain, userId,id, updatedAt} = props
 
+  const updateDaysLeftToWaterPlant = async (plantId: number) => {
+    // let updatedDate = new Date()
+    // let formattedDate = `${updatedDate.getFullYear()}-${updatedDate.getMonth() + 1}-${updatedDate.getDate()} ${updatedDate.getHours()}:${updatedDate.getMinutes()}:${updatedDate.getSeconds()}`
+
+    let updatedPlant = {
+      id: plantId,
+      updatedDate: Date.now()
+    }
+
+    console.table(updatedPlant);
+
+    await fetch("/api/plant/update", {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedPlant)
+    })
+      .then(res => res.json())
+      .then(() => {
+        console.log("Plant successfully updated!");
+
+        // get updated array of all Plants of this users plants and pass that into props.onDelete
+        getUpdatedPlantsList()
+      })
+      .catch(err => console.log({ errorMessage : err}))
+  }
 
   const deletePlant = async (plantId : number) => {
     let deletedPlantId = {
@@ -70,7 +97,7 @@ export const PlantCard: React.FC <any> = (props) => {
           Days to water again : {daysLeftToWater}
         </Card.Text>
         <div className="plant-buttons">
-          <Button className="waterBtn" variant="primary" onClick={() => console.log(`isWater will equal true AND reset the daysToWaterAgain`)}>💧</Button>
+          <Button className="waterBtn" variant="primary" onClick={() => updateDaysLeftToWaterPlant(parseInt(id))}>💧</Button>
           <Button className="deleteBtn" variant="warning" onClick={() => deletePlant(parseInt(id))}>🗑</Button>
         </div>
       </Card.Body>
