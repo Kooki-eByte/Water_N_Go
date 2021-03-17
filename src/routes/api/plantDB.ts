@@ -4,6 +4,7 @@ import {
   addPlant,
   deletePlant,
   getPlants,
+  updatePlant,
 } from "../../controller/plantController";
 
 const apiLimiter = rateLimit({
@@ -22,5 +23,8 @@ router.use("/add", apiLimiter, addPlant); // .post(addPlant);
 
 // /api/plant/delete
 router.route("/delete").delete(deletePlant);
+
+// /api/plant/update
+router.route("/update").put(updatePlant);
 
 module.exports = router;

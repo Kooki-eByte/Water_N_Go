@@ -60,3 +60,26 @@ export const deletePlantQuery = async <T extends { id: string }>(data: T) => {
     return Promise.reject(error);
   }
 };
+
+export const updatePlantQuery = async <
+  T extends { id: string; updatedDate: any }
+>(
+  data: T
+) => {
+  try {
+    const deletedPlant = await dbModel.Plant.update(
+      {
+        updatedAt: data.updatedDate,
+      },
+      {
+        where: {
+          id: data.id,
+        },
+      }
+    );
+
+    return Promise.resolve(deletedPlant);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
