@@ -7,7 +7,7 @@ import { pushNotify } from "../helpers/pushNotify";
 type Plant = {
   plantImageData: string
   name: string
-  isWatered: boolean
+  numberOfTimesWatered: number
   daysToWaterAgain: number
   createdAt: string
   updatedAt: string
@@ -16,7 +16,10 @@ type Plant = {
 }
 
 export const PlantCard: React.FC <any> = (props) => {
-  const { plantImageData, name, daysToWaterAgain, userId,id, updatedAt} = props
+  const { plantImageData, name, daysToWaterAgain, userId,id, updatedAt, numberOfTimesWatered} = props
+
+  console.log(numberOfTimesWatered);
+  
 
   const updateDaysLeftToWaterPlant = async (plantId: number) => {
     // let updatedDate = new Date()
@@ -24,10 +27,8 @@ export const PlantCard: React.FC <any> = (props) => {
 
     let updatedPlant = {
       id: plantId,
-      updatedDate: Date.now()
+      updatedTimesWatered: numberOfTimesWatered + 1
     }
-
-    console.table(updatedPlant);
 
     await fetch("/api/plant/update", {
       method: "PUT",
