@@ -35,7 +35,7 @@ export const addPlant = async ({ body }: plantData, res: any) => {
   await addPlantQuery({
     plantImage: plantImageData,
     name: plantName,
-    isWatered: true,
+    numberOfTimesWatered: 1,
     id: userId,
     daysToWaterAgain: howLongToWaterAgain,
   })

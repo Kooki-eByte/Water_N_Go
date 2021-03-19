@@ -9,7 +9,7 @@ import "./style/styles.css";
 type Plant = {
   plantImageData: string
   name: string
-  isWatered: boolean
+  numberOfTimesWatered: number
   daysToWaterAgain: number
   createdAt: string
   updatedAt: string

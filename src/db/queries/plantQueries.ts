@@ -5,7 +5,7 @@ export const addPlantQuery = async <
   T extends {
     plantImage: string;
     name: string;
-    isWatered: boolean;
+    numberOfTimesWatered: number;
     daysToWaterAgain: number;
     id: string;
   }
@@ -16,7 +16,7 @@ export const addPlantQuery = async <
     const plantData = await dbModel.Plant.create({
       plantImageData: data.plantImage,
       name: data.name,
-      isWatered: data.isWatered,
+      numberOfTimesWatered: data.numberOfTimesWatered,
       userId: data.id,
       daysToWaterAgain: data.daysToWaterAgain,
     });
@@ -62,14 +62,14 @@ export const deletePlantQuery = async <T extends { id: string }>(data: T) => {
 };
 
 export const updatePlantQuery = async <
-  T extends { id: string; updatedDate: any }
+  T extends { id: string; updatedTimesWatered: number }
 >(
   data: T
 ) => {
   try {
     const deletedPlant = await dbModel.Plant.update(
       {
-        updatedAt: data.updatedDate,
+        numberOfTimesWatered: data.updatedTimesWatered,
       },
       {
         where: {

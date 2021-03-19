@@ -17,9 +17,10 @@ module.exports = function (sequelize: any, DataTypes: any) {
           notEmpty: true,
         },
       },
-      // is plant watered
-      isWatered: {
-        type: DataTypes.BOOLEAN,
+      // How many times plant is watered defaults to 1
+      numberOfTimesWatered: {
+        type: DataTypes.INTEGER,
+        default: 1,
         allowNull: false,
       },
       // How mnay days to wait till we change isWatered to false and send out notification
